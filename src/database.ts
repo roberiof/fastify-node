@@ -1,9 +1,10 @@
-import pkg from "knex";
+import knex, { type Knex } from "knex"; // changed the import
+import { env } from "./env";
 
-export const config: pkg.Knex.Config = {
+export const config: Knex.Config = {
   client: "sqlite",
   connection: {
-    filename: "./db/app.db",
+    filename: env.DATABASE_URL,
   },
   migrations: {
     extension: "ts",
@@ -12,4 +13,4 @@ export const config: pkg.Knex.Config = {
   useNullAsDefault: true,
 };
 
-export const knex = pkg.knex(config);
+export const setupKnex = knex(config);
